@@ -6,9 +6,6 @@ from dpfuncs import date_format, if_date_format
 from person import Person
 
 
-persons = []
-
-
 def input_data():
     lname = entry1.get().upper()
     fname = entry2.get().title()
@@ -34,7 +31,6 @@ def input_data():
         entry3.delete(0, tk.END)
         entry4.delete(0, tk.END)
         entry5.delete(0, tk.END)
-
 
     except AssertionError as msg:
         messagebox.showinfo('Помилка', msg)
@@ -87,6 +83,7 @@ def save_file():
                                              ('Python files', '*.py'),
                                              ('All files', '*.*')]
                                   )
+
     with open(file_name, 'w', encoding='utf-8') as file:
         json.dump([person.__dict__ for person in persons], file, indent=4, ensure_ascii=False)
 
@@ -119,11 +116,13 @@ def show_info(people: list):
     text_out.insert(tk.END, text)
 
 
+persons = []
+
 root = tk.Tk()
 root.title('    Дані про людей')
 root.iconbitmap('icon.ico')
 root.resizable(False, False)
-root.configure(padx=10, pady=10, bg='#9EB3C2')
+root.configure(padx=10, pady=10, bg='#E6F4FA')
 
 label1 = tk.Label(root, text='Прізвище')
 label2 = tk.Label(root, text='Ім’я')
@@ -139,19 +138,19 @@ label4.grid(row=0, column=2, sticky='e', padx=5, pady=10)
 label5.grid(row=1, column=2, sticky='e', padx=5, pady=10)
 label6.grid(row=2, column=2, sticky='e', padx=5, pady=10)
 
-label1.configure(bg='#9EB3C2', fg='#01161E', font=('Tahoma', 10, 'bold'))
-label2.configure(bg='#9EB3C2', fg='#01161E', font=('Tahoma', 10, 'bold'))
-label3.configure(bg='#9EB3C2', fg='#01161E', font=('Tahoma', 10, 'bold'))
-label4.configure(bg='#9EB3C2', fg='#01161E', font=('Tahoma', 10, 'bold'))
-label5.configure(bg='#9EB3C2', fg='#01161E', font=('Tahoma', 10, 'bold'))
-label6.configure(bg='#9EB3C2', fg='#01161E', font=('Tahoma', 10, 'bold'))
+label1.configure(bg='#E6F4FA', fg='#000000', font=('Tahoma', 10, 'bold'))
+label2.configure(bg='#E6F4FA', fg='#000000', font=('Tahoma', 10, 'bold'))
+label3.configure(bg='#E6F4FA', fg='#000000', font=('Tahoma', 10, 'bold'))
+label4.configure(bg='#E6F4FA', fg='#000000', font=('Tahoma', 10, 'bold'))
+label5.configure(bg='#E6F4FA', fg='#000000', font=('Tahoma', 10, 'bold'))
+label6.configure(bg='#E6F4FA', fg='#000000', font=('Tahoma', 10, 'bold'))
 
-entry1 = tk.Entry(root, bg='#E0E3DD', fg='#01161E', font=('Arial', 10))
-entry2 = tk.Entry(root, bg='#E0E3DD', fg='#01161E', font=('Arial', 10))
-entry3 = tk.Entry(root, bg='#E0E3DD', fg='#01161E', font=('Arial', 10))
-entry4 = tk.Entry(root, bg='#E0E3DD', fg='#01161E', font=('Arial', 10))
-entry5 = tk.Entry(root, bg='#E0E3DD', fg='#01161E', font=('Arial', 10))
-entry6 = tk.Entry(root, bg='#E0E3DD', fg='#01161E', font=('Arial', 10))
+entry1 = tk.Entry(root, bg='#FFFFFF', fg='#01161E', font=('Tahoma', 10))
+entry2 = tk.Entry(root, bg='#FFFFFF', fg='#01161E', font=('Tahoma', 10))
+entry3 = tk.Entry(root, bg='#FFFFFF', fg='#01161E', font=('Tahoma', 10))
+entry4 = tk.Entry(root, bg='#FFFFFF', fg='#01161E', font=('Tahoma', 10))
+entry5 = tk.Entry(root, bg='#FFFFFF', fg='#01161E', font=('Tahoma', 10))
+entry6 = tk.Entry(root, bg='#FFFFFF', fg='#01161E', font=('Tahoma', 10))
 
 entry1.grid(row=0, column=1, padx=5, pady=10)
 entry2.grid(row=1, column=1, padx=5, pady=10)
@@ -166,15 +165,15 @@ button2 = tk.Button(root, text='Ввести', command=input_data)
 button1.grid(row=1, column=4, padx=5, pady=10)
 button2.grid(row=2, column=4, padx=5, pady=10)
 
-button1.configure(width=15, bg='#B8BFB0', font=('Arial', 9))
-button2.configure(width=15, bg='#B8BFB0', font=('Arial', 9))
+button1.configure(width=15, bg='#E5EBEA', font=('Tahoma', 10))
+button2.configure(width=15, bg='#E5EBEA', font=('Tahoma', 10))
 
 combo = ttk.Combobox(root, values=('Чоловік', 'Жінка'))
 combo.current(0)
 combo.configure(background='#E0E3DD')
 combo.grid(row=2, column=3)
 
-text_out = tk.Text(root, height=15, width=100, bg='#E5EBEA', fg='#01161E', font=('Arial', 10))
+text_out = tk.Text(root, height=15, width=90, bg='#F7F7F7', fg='#01161E', font=('Tahoma', 11))
 text_out.grid(row=3, column=0, columnspan=6)
 
 menubar = tk.Menu(root)
