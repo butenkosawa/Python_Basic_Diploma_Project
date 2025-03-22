@@ -102,7 +102,7 @@ def clean_data():
 
 
 def about_project():
-    with open('Diplom Task.txt', 'r', encoding='utf-8') as file:
+    with open('Diplom_Task.txt', 'r', encoding='utf-8') as file:
         data = file.read()
     text_out.delete(1.0, tk.END)
     text_out.insert(tk.END, data)
