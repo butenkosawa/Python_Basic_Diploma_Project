@@ -7,6 +7,9 @@ from person import Person
 
 
 def input_data():
+    """Обробка введених користувачем даних"""
+
+    # Призначення у змінні даних, введених користувачем
     lname = entry1.get().upper()
     fname = entry2.get().title()
     mname = entry3.get().title()
@@ -15,28 +18,40 @@ def input_data():
     sex = combo.get().lower()
 
     try:
+        # Перевірка на введення даних в обов'язкові поля Ім'я та Дата народження
         assert all([fname, dbirth]), \
             'Будь ласка, введіть Ім’я та Дату народження.'
+
+        # Перевірка на введення дат у коректному форматі
         assert dbirth != 'Invalid date format' and ddeath != 'Invalid date format', \
             'Будь ласка, введіть дату у форматі ДД.ММ.РРРР'
+
+        # Перевірка чи введена дата смерті не раніше за дату народження
         if ddeath:
             assert date_format(ddeath) > date_format(dbirth), \
                 'Дата смерті раніше за дату народження.'
 
+        # Створення екземпляра класу Person та додавання його до списку
         persons.append(Person(fname, mname, lname, dbirth, ddeath, sex[0]))
+
+        # Відображення інформації про людей в текстовому полі
         show_info(persons)
 
+        # Очищення введених користувачем даних в полях для введення даних
         entry1.delete(0, tk.END)
         entry2.delete(0, tk.END)
         entry3.delete(0, tk.END)
         entry4.delete(0, tk.END)
         entry5.delete(0, tk.END)
 
+    # Обробка виключення AssertionError з виведенням відповідного повідомлення
     except AssertionError as msg:
         messagebox.showinfo('Помилка', msg)
 
 
 def search_person():
+    """Пошук людей за введеними параметрами"""
+
     searched_person = entry6.get().lower()
     search_result = []
 
@@ -52,7 +67,9 @@ def search_person():
         entry6.delete(0, tk.END)
 
 
-def open_file():
+def load_file():
+    """Завантаження даних з файлу"""
+
     global persons
     file_name = askopenfilename(defaultextension='.json',
                                 filetypes=[('JSON files', '*.json'),
@@ -78,6 +95,8 @@ def open_file():
 
 
 def save_file():
+    """Збереження даних у файл"""
+
     file_name = asksaveasfilename(defaultextension='.json',
                                   filetypes=[('JSON files', '*.json'),
                                              ('Python files', '*.py'),
@@ -89,19 +108,27 @@ def save_file():
 
 
 def display_info():
+    """Відображення даних про людей в текстовому полі"""
+
     show_info(persons)
 
 
 def clean_text():
+    """Очищення даних в текстовому полі"""
+
     text_out.delete(1.0, tk.END)
 
 
 def clean_data():
+    """Очищення даних про людей"""
+
     global persons
     persons = []
 
 
 def about_project():
+    """Виведення інформації про програму в текстове поле"""
+
     with open('Diplom_Task.txt', 'r', encoding='utf-8') as file:
         data = file.read()
     text_out.delete(1.0, tk.END)
@@ -109,6 +136,8 @@ def about_project():
 
 
 def show_info(people: list):
+    """Формування даних для відображення інформації про людей"""
+
     text = ''
     for person in people:
         text += str(person) + '\n'
@@ -180,7 +209,7 @@ menubar = tk.Menu(root)
 
 filemenu = tk.Menu(menubar)
 menubar.add_cascade(label='Файл', menu=filemenu)
-filemenu.add_command(label='Відкрити', command=open_file)
+filemenu.add_command(label='Відкрити', command=load_file)
 filemenu.add_command(label='Зберегти', command=save_file)
 
 actionmenu = tk.Menu(menubar)
