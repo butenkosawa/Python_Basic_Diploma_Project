@@ -22,7 +22,7 @@ def if_date_format(date: str) -> str:
     if not date:
         return ""
 
-    date = ''.join(list(map(lambda x: x if x.isdigit() else ".", date)))
+    date = ''.join(map(lambda x: x if x.isdigit() else ".", date))
 
     try:
         date = date_format(date)
