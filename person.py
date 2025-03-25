@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from dpfuncs import date_format
 
 class Person:
 
@@ -13,22 +13,15 @@ class Person:
 
     def __str__(self):
         # Обчислення віку людини -> повних років.
-        age = self.calculate_age()
+        age = str(self.calculate_age())
 
-        # Перевірка віку людини
-        # для визначення необхідного слова "рік", "років" або "роки".
-        if age == 0 or age in range(5, 20):
-            years = 'років'
-        elif age == 1:
-            years = 'рік'
-        elif age in (2, 3, 4):
+        # Перевірка віку людини для визначення необхідного слова "рік", "років" або "роки".
+        if age[-1] == "1" and len(age) == 1 or age[-1] == "1" and age[-2] != "1":
+            years = "рік"
+        elif age[-1] in "234" and len(age) == 1 or age[-1] in "234" and age[-2] != "1":
             years = 'роки'
-        elif age % 10 == 0 or age % 10 in range(5, 10):
-            years = 'років'
-        elif age % 10 == 1:
-            years = 'рік'
         else:
-            years = 'роки'
+            years = 'років'
 
         # Перевірка введеного значення статі
         # для визначення необхідних слів для статті людини.
@@ -44,7 +37,7 @@ class Person:
         strng = [f'{self.lname}',
                  f'{self.fname}',
                  f'{self.mname}',
-                 f'{self.calculate_age()}',
+                 f'{age}',
                  f'{years},',
                  f'{sex}.',
                  f'{born}:',
@@ -58,11 +51,12 @@ class Person:
         # Формування строки для відображення користувачу інформації про особу
         return ' '.join(strng) if self.ddeath else ' '.join(strng[:-2])
 
+
     def calculate_age(self):
 
         # Переведення дат str -> datetime та визначення останнього дня життя для визначення віку
-        birthday = datetime.strptime(self.dbirth, "%d.%m.%Y")
-        lastday = datetime.strptime(self.ddeath, "%d.%m.%Y") if self.ddeath else datetime.today()
+        birthday = date_format(self.dbirth)
+        lastday = date_format(self.ddeath) if self.ddeath else datetime.today()
 
         # Обчислення різниці років в датах
         age = lastday.year - birthday.year
