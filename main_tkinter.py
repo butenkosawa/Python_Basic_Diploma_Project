@@ -139,8 +139,8 @@ def show_info(people: list):
     """Формування даних для відображення інформації про людей"""
 
     text = ''
-    for person in people:
-        text += str(person) + '\n'
+    for idx, person in enumerate(people, 1):
+        text += str(idx).rjust(2) + '. ' + str(person) + '\n'
     text_out.delete(1.0, tk.END)
     text_out.insert(tk.END, text)
 
